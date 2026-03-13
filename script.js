@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {  // WRAP IN THIS
 
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
-      outputContent.textContent = data.reply || "No response";
+      outputContent.innerHTML = DOMPurify.sanitize(marked.parse(data.reply)) || DOMPurify.sanitize("No response");
     } catch (error) {
       console.error("Error:", error);
       outputContent.textContent = "Error - check console";
